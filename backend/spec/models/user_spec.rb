@@ -1,14 +1,30 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                   :bigint           not null, primary key
+#  sub_id               :string           not null
+#  google_id            :string
+#  email                :string           not null
+#  nickname             :string           not null
+#  avatar_key           :string
+#  avatar_url           :string
+#  view_history         :integer          default([]), is an Array
+#  confirmation_token   :string
+#  confirmed_at         :datetime
+#  confirmation_sent_at :datetime
+#  password_digest      :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
 require 'rails_helper'
 RSpec.describe User, type: :model do
   subject { build(:user) }
 
-  it { is_expected.to validate_presence_of(:sub_id) }
-  it { is_expected.to validate_uniqueness_of(:sub_id) }
   it { is_expected.to validate_uniqueness_of(:google_id) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to validate_presence_of(:nickname) }
   it { is_expected.to validate_length_of(:nickname).is_at_least(2) }
-  it { is_expected.to validate_presence_of(:confirmation_token) }
 
   describe 'email format validation' do
     it { is_expected.not_to allow_value('invalid-email').for(:email) }

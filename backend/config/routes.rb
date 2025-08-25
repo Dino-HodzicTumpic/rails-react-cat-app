@@ -7,4 +7,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  namespace :api do
+    resources :registrations, only: :create do
+      collection do
+        post 'check_email'
+      end
+    end
+
+    post 'google_oauth/authenticate', to: 'google_oauth#authenticate'
+  end
 end
