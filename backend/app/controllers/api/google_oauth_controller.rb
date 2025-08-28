@@ -1,9 +1,6 @@
 require 'googleauth'
 module Api
   class GoogleOauthController < ApplicationController
-    # Disable CSRF protection since this endpoint is used as a JSON API (not Rails forms)
-    skip_before_action :verify_authenticity_token
-
     def authenticate
       result = GoogleOauthService.new(params[:id_token], params[:device_info]).authenticate
       render json: { token: result[:token], user: result[:user] },
