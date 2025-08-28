@@ -7,7 +7,6 @@
 #  google_id            :string
 #  email                :string           not null
 #  nickname             :string           not null
-#  avatar_key           :string
 #  avatar_url           :string
 #  view_history         :integer          default([]), is an Array
 #  confirmation_token   :string
@@ -16,6 +15,7 @@
 #  password_digest      :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  avatar_public_id     :string
 #
 class User < ApplicationRecord
   before_validation :set_sub_id
