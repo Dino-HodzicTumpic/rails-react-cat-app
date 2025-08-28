@@ -36,8 +36,19 @@ class GoogleOauthService
     user.email = payload['email']
     user.nickname = payload['name']
     user.confirmed_at = Time.current
+
+    save_avatar(payload, user) if payload['picture'].present?
+
     user.save!
-    # TODO: SLIKE
+  end
+
+  def save_avatar(payload, user)
+    upload = Cloudinary::Uploader.upload(
+      payload['picture'],
+      folder: 'user_avatars'
+    )
+    user.avatar_url = upload['secure_url']
+    user.avatar_public_id = upload['public_id']
   end
 
   def create_session(user)
