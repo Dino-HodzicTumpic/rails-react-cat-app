@@ -3,7 +3,7 @@ module Api
     def create; end
 
     def check_email
-      email = params.dig(:user, :email)
+      email = params[:email]
       return render json: { error: 'email param missing' }, status: :bad_request if email.blank?
 
       unless email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)
