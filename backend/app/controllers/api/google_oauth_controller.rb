@@ -8,7 +8,5 @@ module Api
     rescue Google::Auth::IDTokens::VerificationError
       render json: { error: 'Authentication failed' }, status: :unauthorized
     end
-
-    # TODO: DODAT METODU ZA SLIKE SA AWS S3 KAD DODEMO DO TOG
   end
 end

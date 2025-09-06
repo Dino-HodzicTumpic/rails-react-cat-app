@@ -96,10 +96,7 @@ export default function SignUpForm({ email, setEmail, onNext }: Props) {
       <div className="">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1 ">
-            <label
-              htmlFor="email"
-              className=" text-left md:text-xl lg:text-2xl"
-            >
+            <label htmlFor="email" className="font-bold text-left md:text-lg">
               Email address
             </label>
             <input

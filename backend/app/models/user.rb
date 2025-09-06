@@ -29,8 +29,7 @@ class User < ApplicationRecord
   validates :google_id, uniqueness: true
   validates :email, uniqueness: { case_sensitive: false },
                     format: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
-  validates :nickname, presence: true,
-                       length: { minimum: 2 }
+  validates :nickname, presence: true
   validates :confirmation_token, presence: true
   validates :password, presence: true, if: -> { google_id.blank? }
 

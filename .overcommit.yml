@@ -34,8 +34,9 @@
 PreCommit:
   ALL:
     exclude:
-      - '_spec/**/**'
-      - '**/db/structure.sql'
+      - "_spec/**/**"
+      - "**/db/structure.sql"
+      - "backend/config/environments/**"
 
   AuthorName:
     enabled: false
@@ -49,18 +50,18 @@ PreCommit:
   TrailingWhitespace:
     enabled: true
     exclude:
-      - '**/db/structure.sql'
+      - "**/db/structure.sql"
 
   RuboCop:
     enabled: true
-    required_executable: 'bundle'
-    command: ['bash', '-c', 'cd backend && bundle exec rubocop']
-    include: ['backend/**/*.rb']
-   # working_directory: 'backend'
+    required_executable: "bundle"
+    command: ["bash", "-c", "cd backend && bundle exec rubocop"]
+    include: ["backend/**/*.rb"]
+    # working_directory: 'backend'
 
   RSpec:
     enabled: true
-    required_executable: 'bundle'
-    command: ['bash', '-c', 'cd backend && bundle exec rspec']
-    include: ['backend/spec/**/*_spec.rb']
+    required_executable: "bundle"
+    command: ["bash", "-c", "cd backend && bundle exec rspec"]
+    include: ["backend/spec/**/*_spec.rb"]
     #working_directory: 'backend'

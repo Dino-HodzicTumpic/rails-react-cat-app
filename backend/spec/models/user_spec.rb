@@ -24,7 +24,6 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_uniqueness_of(:google_id) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to validate_presence_of(:nickname) }
-  it { is_expected.to validate_length_of(:nickname).is_at_least(2) }
 
   describe 'email format validation' do
     it { is_expected.not_to allow_value('invalid-email').for(:email) }

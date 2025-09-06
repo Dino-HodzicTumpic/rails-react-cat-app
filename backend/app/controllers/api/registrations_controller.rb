@@ -1,6 +1,15 @@
 module Api
   class RegistrationsController < ApplicationController
-    def create; end
+    def create
+      service = RegistrationService.new(params[:email], params[:password], params[:nickname])
+      result = service.call
+
+      if result[:success]
+        render json: { message: 'confirmation email sent' }, status: :ok
+      else
+        render json: { error: result[:error] }, status: :unprocessable_entity
+      end
+    end
 
     def check_email
       email = params[:email]

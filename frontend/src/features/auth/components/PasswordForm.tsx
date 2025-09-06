@@ -48,10 +48,7 @@ export default function PasswordForm({
       </div>
       <form onSubmit={handleSubmit}>
         <div className=" relative flex flex-col max-w-md ">
-          <label
-            htmlFor="password"
-            className="text-left md:text-xl lg:text-2xl "
-          >
+          <label htmlFor="password" className="font-bold text-left md:text-lg ">
             Password
           </label>
           <input
