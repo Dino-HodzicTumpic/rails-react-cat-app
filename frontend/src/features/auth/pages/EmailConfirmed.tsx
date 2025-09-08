@@ -3,19 +3,28 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { getDeviceInfo } from "../../../utils/device";
+import { useAuthStore } from "../store/authStore";
 
 export default function EmailConfirmed() {
   const [time, setTime] = useState<number>(5);
   const [searchParams] = useSearchParams();
+  const setSessionToken = useAuthStore((state) => state.setToken);
   const navigate = useNavigate();
 
   useEffect(() => {
     const confirmEmail = async () => {
+      const device_info = getDeviceInfo();
       const token = searchParams.get("token");
       try {
-        await axios.post(`${import.meta.env.VITE_API_URL}/confirmations`, {
-          token,
-        });
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/confirmations`,
+          {
+            token,
+            device_info,
+          }
+        );
+        setSessionToken(response.data.token);
       } catch (err) {
         console.log(err);
       }

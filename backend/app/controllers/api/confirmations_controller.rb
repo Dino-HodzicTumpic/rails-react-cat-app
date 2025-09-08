@@ -1,10 +1,11 @@
 module Api
   class ConfirmationsController < ApplicationController
     def create
-      result = ConfirmUserService(params[:token]).confirm_user
+      service = ConfirmUserService.new(params[:token], params[:device_info])
+      result = service.confirm_user
 
       if result[:success]
-        render json: { message: 'Account confirmed' }, status: :ok
+        render json: { message: 'Account confirmed', token: result[:token] }, status: :ok
       else
         render json: { error: result[:error] }, status: :unprocessable_entity
 
