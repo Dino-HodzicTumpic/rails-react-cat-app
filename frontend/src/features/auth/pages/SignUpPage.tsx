@@ -5,11 +5,16 @@ import NicknameForm from "../components/NicknameForm";
 import logo from "../../../assets/images/CatSpaceLogo.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 export default function SignUpPage() {
   const [step, setStep] = useState<number>(0);
-  const [email, setEmail] = useState<string>("");
+  //const [email, setEmail] = useState<string>("");
+  //const [nickname, setNickname] = useState<string>("");
+  const email = useAuthStore((state) => state.email);
+  const setEmail = useAuthStore((state) => state.setEmail);
+  const nickname = useAuthStore((state) => state.nickname);
+  const setNickname = useAuthStore((state) => state.setNickname);
   const [password, setPassword] = useState<string>("");
-  const [nickname, setNickname] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSignUp = async () => {

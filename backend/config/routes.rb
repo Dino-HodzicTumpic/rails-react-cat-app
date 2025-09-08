@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :confirmations, only: :create
+
     post 'google_oauth/authenticate', to: 'google_oauth#authenticate'
   end
 end
