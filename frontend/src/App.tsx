@@ -6,20 +6,32 @@ import CheckEmailPage from "./features/auth/pages/CheckEmailPage";
 import HomePage from "./features/home/pages/HomePage";
 import EmailConfirmed from "./features/auth/pages/EmailConfirmed";
 import LoginPage from "./features/auth/pages/LoginPage";
+import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route
-          path="/signup/confirmation-pending"
-          element={<CheckEmailPage />}
-        />
-        <Route path="/signup/confirm" element={<EmailConfirmed />} />
-        <Route path="/login" element={<LoginPage />}></Route>
-      </Routes>
+      <div className="flex flex-col min-h-screen">
+        <Navbar></Navbar>
+
+        <main className="flex flex-col items-center flex-1 pt-16  ">
+          {/* search bar mobile */}
+          <div className="md:hidden px-4 py-2  ">
+            <SearchBar />
+          </div>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route
+              path="/signup/confirmation-pending"
+              element={<CheckEmailPage />}
+            />
+            <Route path="/signup/confirm" element={<EmailConfirmed />} />
+            <Route path="/login" element={<LoginPage />}></Route>
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }
