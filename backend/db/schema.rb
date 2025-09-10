@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_28_173742) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_10_185600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_28_173742) do
     t.string "breed_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.string "cat_api_id"
+    t.string "temperament"
+    t.string "origin"
+    t.string "life_span"
+    t.string "sample_image_url"
+    t.boolean "featured", default: false
+    t.string "wikipedia_url"
     t.index ["breed_name"], name: "index_breeds_on_breed_name", unique: true
+    t.index ["cat_api_id"], name: "index_breeds_on_cat_api_id", unique: true
+    t.index ["featured"], name: "index_breeds_on_featured"
   end
 
   create_table "cats", force: :cascade do |t|
@@ -27,6 +37,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_28_173742) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cloudinary_public_id", null: false
     t.index ["cat_api_id"], name: "index_cats_on_cat_api_id", unique: true
   end
 

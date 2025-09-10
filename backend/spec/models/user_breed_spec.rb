@@ -3,10 +3,20 @@
 # Table name: user_breeds
 #
 #  id         :bigint           not null, primary key
-#  user_id    :bigint           not null
-#  breed_id   :bigint           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  breed_id   :bigint           not null
+#  user_id    :bigint           not null
+#
+# Indexes
+#
+#  index_user_breeds_on_breed_id  (breed_id)
+#  index_user_breeds_on_user_id   (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (breed_id => breeds.id)
+#  fk_rails_...  (user_id => users.id)
 #
 require 'rails_helper'
 RSpec.describe UserBreed, type: :model do
