@@ -5,6 +5,7 @@
 #  id                   :bigint           not null, primary key
 #  image_key            :string
 #  image_url            :string
+#  name                 :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  cat_api_id           :string           not null

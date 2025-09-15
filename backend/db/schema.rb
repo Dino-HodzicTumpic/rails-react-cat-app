@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_10_185600) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_12_161332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,30 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_10_185600) do
     t.string "sample_image_url"
     t.boolean "featured", default: false
     t.string "wikipedia_url"
+    t.string "sample_image_public_id"
+    t.string "alt_names"
+    t.integer "adaptability"
+    t.integer "affection_level"
+    t.integer "child_friendly"
+    t.integer "dog_friendly"
+    t.integer "energy_level"
+    t.integer "grooming"
+    t.integer "health_issues"
+    t.integer "intelligence"
+    t.integer "shedding_level"
+    t.integer "social_needs"
+    t.integer "stranger_friendly"
+    t.integer "vocalisation"
+    t.boolean "indoor", default: false
+    t.boolean "lap", default: false
+    t.boolean "experimental", default: false
+    t.boolean "hairless", default: false
+    t.boolean "natural", default: false
+    t.boolean "rare", default: false
+    t.boolean "rex", default: false
+    t.boolean "suppressed_tail", default: false
+    t.boolean "short_legs", default: false
+    t.boolean "hypoallergenic", default: false
     t.index ["breed_name"], name: "index_breeds_on_breed_name", unique: true
     t.index ["cat_api_id"], name: "index_breeds_on_cat_api_id", unique: true
     t.index ["featured"], name: "index_breeds_on_featured"
@@ -38,6 +62,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_10_185600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cloudinary_public_id", null: false
+    t.string "name"
     t.index ["cat_api_id"], name: "index_cats_on_cat_api_id", unique: true
   end
 

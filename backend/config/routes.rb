@@ -18,5 +18,11 @@ Rails.application.routes.draw do
     resources :logins, only: :create
 
     post 'google_oauth/authenticate', to: 'google_oauth#authenticate'
+
+    resources :breeds, only: [:index, :show] do
+      collection do
+        get :featured
+      end
+    end
   end
 end
