@@ -10,7 +10,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div className="sticky top-0 left-0 right-0  z-50 w-full  ">
+    <div className="sticky top-0 left-0 right-0  z-50 w-full bg-blue-400 ">
       <nav className="flex flex-col  shadow-md">
         <div className="flex items-center justify-around h-16">
           {" "}
