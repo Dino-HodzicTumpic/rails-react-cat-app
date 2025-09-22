@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DiVim } from "react-icons/di";
+import { Link, useNavigate } from "react-router-dom";
 
 interface BreedCardProps {
   breedId: number;
@@ -15,16 +16,20 @@ export default function BreedCard({
   sample_image_url,
 }: BreedCardProps) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col md:flex-row  items-center md:items-start  rounded-2xl ">
       <img
         src={sample_image_url}
         alt="Breed picture"
-        className="rounded-2xl w-1/2 md:w-1/3 md:h-full "
+        className="rounded-2xl w-1/2 md:w-1/3 md:h-full cursor-pointer"
+        onClick={() => navigate(`/breeds/${breedId}`)}
       />
       <div className="md:w-[400px]">
-        <h2 className="font-bold md:text-lg">{breed_name}</h2>
+        <h2 className="font-bold md:text-lg cursor-pointer">
+          <Link to={`/breeds/${breedId}`}>{breed_name}</Link>
+        </h2>
         <div
           className={`relative overflow-hidden mx-3 ${
             isExpanded ? "max-h-full" : "max-h-16 md:max-h-full"

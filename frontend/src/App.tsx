@@ -8,6 +8,7 @@ import EmailConfirmed from "./features/auth/pages/EmailConfirmed";
 import LoginPage from "./features/auth/pages/LoginPage";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
+import BreedPage from "./features/browse-breeds/pages/BreedPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             />
             <Route path="/signup/confirm" element={<EmailConfirmed />} />
             <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/breeds/:id" element={<BreedPage />} />
           </Routes>
         </main>
       </div>

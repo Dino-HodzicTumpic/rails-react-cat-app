@@ -29,7 +29,7 @@ export default function BrowseByBreed() {
   return (
     <div className="mt-2">
       <h2 className="font-bold mb-4 md:mb-6 md:text-2xl">Featured Breeds</h2>
-      <div className="flex flex-col gap-4 md:ml-6  md:grid grid-rows-2 grid-cols-2">
+      <div className="flex flex-col gap-4 md:ml-6 md:grid grid-rows-2 grid-cols-2 md:gap-y-10">
         {ftBreeds.map((ftBreed, index) => (
           <React.Fragment key={ftBreed.id}>
             <BreedCard

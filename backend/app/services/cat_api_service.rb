@@ -57,7 +57,7 @@ class CatApiService # rubocop:disable Metrics/ClassLength
       )
 
       # Option 1: Koristi reference_image_id
-      if breed.sample_image_url.blank? && breed_data['reference_image_id'].present?
+      if breed_data['reference_image_id'].present?
         reference_image_url = build_reference_image_url(breed_data['reference_image_id'])
         result = upload_to_cloudinary(reference_image_url, breed_data['id'])
         if result
@@ -137,7 +137,7 @@ class CatApiService # rubocop:disable Metrics/ClassLength
           folder: 'cat_breeds',
           public_id: "breeds_#{breed_id}",
           transformation: [
-            { width: 800, height: 600, crop: 'fill', quality: 'auto' }
+            { width: 800, height: 600, crop: 'scale', quality: 'auto' }
           ],
           tags: ['cat_breed', 'sample_image']
         }
@@ -153,12 +153,12 @@ class CatApiService # rubocop:disable Metrics/ClassLength
 
   def self.fetch_breed_images(breed_id, count = 10)
     response = get('/images/search',
-                   query: { breed_id: breed_id, limit: count, has_breeds: 1 },
+                   query: { breed_ids: breed_id, limit: count, has_breeds: 1 },
                    headers: headers)
 
     return [] unless response.success?
 
-    response.parsed_response.map { |img| img['url'] }
+    response.parsed_response.map { |img| { url: img['url'], id: img['id'] } }
   rescue StandardError => e
     Rails.logger.error "Failed to fetch breed images for #{breed_id}: #{e.message}"
     []
