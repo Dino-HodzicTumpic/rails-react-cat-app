@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_user_breeds_on_breed_id  (breed_id)
-#  index_user_breeds_on_user_id   (user_id)
+#  index_user_breeds_on_breed_id              (breed_id)
+#  index_user_breeds_on_user_id               (user_id)
+#  index_user_breeds_on_user_id_and_breed_id  (user_id,breed_id) UNIQUE
 #
 # Foreign Keys
 #

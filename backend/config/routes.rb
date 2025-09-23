@@ -29,5 +29,14 @@ Rails.application.routes.draw do
         get :images
       end
     end
+
+    resources :favorites, only: [:index] do
+      collection do
+      post 'breeds/:breed_id', action: :add_breed
+      delete 'breeds/:breed_id', action: :remove_breed
+      post 'cats/:cat_id', action: :add_cat
+      delete 'cats/:cat_id', action: :remove_cat
+      end
+    end
   end
 end

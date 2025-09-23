@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_12_161332) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_23_165715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_12_161332) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "cloudinary_public_id", null: false
+    t.string "cloudinary_public_id"
     t.string "name"
     t.index ["cat_api_id"], name: "index_cats_on_cat_api_id", unique: true
   end
@@ -72,7 +72,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_12_161332) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["breed_id"], name: "index_user_breeds_on_breed_id"
+    t.index ["user_id", "breed_id"], name: "index_user_breeds_on_user_id_and_breed_id", unique: true
     t.index ["user_id"], name: "index_user_breeds_on_user_id"
+  end
+
+  create_table "user_cats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "cat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cat_id"], name: "index_user_cats_on_cat_id"
+    t.index ["user_id", "cat_id"], name: "index_user_cats_on_user_id_and_cat_id", unique: true
+    t.index ["user_id"], name: "index_user_cats_on_user_id"
   end
 
   create_table "user_sessions", force: :cascade do |t|
@@ -110,5 +121,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_12_161332) do
 
   add_foreign_key "user_breeds", "breeds"
   add_foreign_key "user_breeds", "users"
+  add_foreign_key "user_cats", "cats"
+  add_foreign_key "user_cats", "users"
   add_foreign_key "user_sessions", "users"
 end

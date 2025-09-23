@@ -9,7 +9,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  cat_api_id           :string           not null
-#  cloudinary_public_id :string           not null
+#  cloudinary_public_id :string
 #
 # Indexes
 #
