@@ -151,16 +151,32 @@ class CatApiService # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def self.fetch_breed_images(breed_id, count = 10)
-    response = get('/images/search',
-                   query: { breed_ids: breed_id, limit: count, has_breeds: 1 },
-                   headers: headers)
+  def self.fetch_breed_images(breed_id, user = nil, count = 10)
+    response = request_breed_images(breed_id, count)
 
     return [] unless response.success?
 
-    response.parsed_response.map { |img| { url: img['url'], id: img['id'] } }
+    cat_api_ids = response.parsed_response.map { |img| img['id'] }
+
+    liked_cat_ids = get_liked_cat_ids(user, cat_api_ids)
+
+    response.parsed_response.map do |img|
+      { url: img['url'], id: img['id'], isLiked: liked_cat_ids.include?(img['id']) }
+    end
   rescue StandardError => e
     Rails.logger.error "Failed to fetch breed images for #{breed_id}: #{e.message}"
     []
+  end
+
+  def self.request_breed_images(breed_id, count)
+    get('/images/search',
+        query: { breed_ids: breed_id, limit: count, has_breeds: 1 },
+        headers: headers)
+  end
+
+  def self.get_liked_cat_ids(user, cat_api_ids)
+    return [] unless user
+
+    user.user_cats.joins(:cat).where(cats: { cat_api_id: cat_api_ids }).pluck('cats.cat_api_id')
   end
 end

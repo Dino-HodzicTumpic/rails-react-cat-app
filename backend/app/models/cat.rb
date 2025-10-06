@@ -17,8 +17,8 @@
 #
 class Cat < ApplicationRecord
   validates :cat_api_id, presence: true, uniqueness: true
-  validates :cloudinary_public_id, presence: true
 
+  has_many :user_cats, dependent: :destroy
   has_many :users, through: :user_cats
 
   def image_url

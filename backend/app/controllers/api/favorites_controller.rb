@@ -9,20 +9,19 @@ module Api
     def remove_breed; end
 
     def add_cat
-      cat_data = cat_params
-      result = FavoriteService.add_cat(current_user, cat_data)
+      result = FavoriteService.add_cat(current_user, params[:cat_id], cat_params[:image_url])
       render json: result[:data], status: result[:status]
     end
 
     def remove_cat
-      result = FavoriteService.remove_cat(current_user, cat_params[:cat_api_id])
+      result = FavoriteService.remove_cat(current_user, params[:cat_id])
       render json: result[:data], status: result[:status]
     end
-  end
 
-  private
+    private
 
-  def cat_params
-    params.require(:cat).permit(:cat_api_id, :image_url)
+    def cat_params
+      params.require(:cat).permit(:image_url)
+    end
   end
 end

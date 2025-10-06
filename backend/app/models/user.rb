@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :user_sessions, dependent: :destroy
   has_many :user_breeds, dependent: :destroy
   has_many :breeds, through: :user_breeds
+  has_many :user_cats, dependent: :destroy
   has_many :cats, through: :user_cats
 
   validates :sub_id, presence: true, uniqueness: true

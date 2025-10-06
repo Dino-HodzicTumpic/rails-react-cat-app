@@ -17,6 +17,18 @@ class ApplicationController < ActionController::API
     render json: { error: 'User not found' }, status: :unauthorized unless @current_user
   end
 
+  def current_user_optional
+    token = request.headers['Authorization']&.split(' ')&.last
+    return nil unless token
+
+    session = UserSession.find_by(token: token)
+    return nil unless session
+
+    session.touch(:last_used_at) # rubocop:disable Rails/SkipsModelValidations
+
+    session.user
+  end
+
   private
 
   attr_reader :current_user

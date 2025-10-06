@@ -5,7 +5,8 @@ module Api
 
     def images
       breed = Breed.find(params[:id])
-      breed_images = CatApiService.fetch_breed_images(breed.cat_api_id)
+      user = current_user_optional
+      breed_images = CatApiService.fetch_breed_images(breed.cat_api_id, user)
       render json: { breed_images: breed_images }, status: :ok
     rescue ActiveRecord::RecordNotFound
       render json: { error: 'Breed not found' }, status: :not_found

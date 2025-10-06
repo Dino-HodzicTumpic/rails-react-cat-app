@@ -33,6 +33,7 @@ interface BreedInfo {
 interface BreedImage {
   url: string;
   id: string;
+  isLiked: boolean;
 }
 
 export default function BreedPage({}) {
