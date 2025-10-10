@@ -1,29 +1,32 @@
-import React from "react";
+import React, { use } from "react";
 import type { BreedImages } from "./BreedGallery";
 import { FaRegHeart, FaStar, FaHeart } from "react-icons/fa";
 import { useIsLoggedIn } from "../../../hooks/useIsLoggedIn";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../auth/store/authStore";
 
 interface GalleryCardProps {
   image: BreedImages;
   catName: string;
-  isFavorite?: boolean;
-  toggleFavorite: (imageId: string, imageUrl: string) => void;
+  favoriteCats?: string[];
+  toggleFavorite: (token: string, imageId: string, imageUrl: string) => void;
 }
 
 export default function GalleryCard({
   image,
   catName,
-  isFavorite,
+  favoriteCats,
   toggleFavorite,
 }: GalleryCardProps) {
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
+  const token = useAuthStore((state) => state.token);
+  const isFavorite = favoriteCats?.includes(image.id) ?? false;
 
   const handleFavoriteClick = () => {
     //check if loged in if not redirect to loginpage/register else toogleFavorite
-    if (isLoggedIn) {
-      toggleFavorite(image.id, image.url);
+    if (isLoggedIn && token) {
+      toggleFavorite(token, image.id, image.url);
     } else {
       navigate("/signup");
     }

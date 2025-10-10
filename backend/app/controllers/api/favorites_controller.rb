@@ -11,7 +11,8 @@ module Api
     end
 
     def cats
-      # TODO
+      result = FavoriteService.get_user_favorite_cats(current_user)
+      render json: result[:data], status: result[:status]
     end
 
     def add_breed

@@ -5,6 +5,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useCatNamesStore } from "../../../store/catNamesStore";
 import GalleryCard from "./GalleryCard";
 import { useFavorites } from "../../../hooks/useFavorites";
+import { useCatFavoriteStore } from "../../../store/catFavoriteStore";
 
 export interface BreedImages {
   id: string;
@@ -23,7 +24,8 @@ export default function BreedGallery({ images }: BreedGalleryProps) {
     .filter((img) => img.isLiked)
     .map((img) => img.id);
 
-  const { isFavorite, toggleFavorite } = useFavorites(initialFavorites);
+  //const { isFavorite, toggleFavorite } = useFavorites(initialFavorites);
+  const { favoriteCats, toggleFavoriteCat } = useCatFavoriteStore();
   return (
     <>
       <h2 className="font-bold mt-10 md:text-2xl">Breed Gallery</h2>
@@ -33,8 +35,8 @@ export default function BreedGallery({ images }: BreedGalleryProps) {
             key={image.id}
             image={image}
             catName={catNames[image.id]}
-            isFavorite={isFavorite(image.id)}
-            toggleFavorite={toggleFavorite}
+            favoriteCats={favoriteCats}
+            toggleFavorite={toggleFavoriteCat}
           />
         ))}
       </div>

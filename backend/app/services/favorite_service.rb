@@ -59,7 +59,10 @@ class FavoriteService
   # return all favorites (cats + breeds)
   def self.get_user_favorites(user); end
 
-  def self.get_user_favorite_cats(user); end
+  def self.get_user_favorite_cats(user)
+    cats = user.cats
+    { data: { cats: cats }, status: :ok }
+  end
 
   def self.get_user_favorite_breeds(user)
     breeds = user.breeds

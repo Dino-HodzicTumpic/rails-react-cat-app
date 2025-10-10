@@ -44,7 +44,7 @@ export const useBreedFavoritesStore = create<BreedFavoritesStore>()(
           }
         } catch (err: any) {
           set({ favoriteBreeds });
-          // 👇 Ispiši error s backenda
+          //  Ispiši error s backenda
           const errorMessage =
             err.response?.data?.error ||
             err.response?.data?.message ||
