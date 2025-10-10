@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { randomCatName } from "../../../utils/randomCatName";
 import { Stars } from "../../../components/Stars";
 import BreedGallery from "../components/BreedGallery";
@@ -8,6 +8,10 @@ import SkeletonGallery from "../components/SkeletonGallery";
 import { IoMaleFemaleSharp } from "react-icons/io5";
 import { useCatNamesStore } from "../../../store/catNamesStore";
 import { ImGift } from "react-icons/im";
+import { useIsLoggedIn } from "../../../hooks/useIsLoggedIn";
+import { useBreedFavoritesStore } from "../../../store/breedFavoritesStore";
+import { useAuthStore } from "../../auth/store/authStore";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface BreedInfo {
   id: number;
@@ -41,6 +45,15 @@ export default function BreedPage({}) {
   const [breedInfo, setBreedInfo] = useState<BreedInfo | null>(null);
   const [breedImages, setBreedImages] = useState<BreedImage[] | null>(null);
   const { catNames, setCatName } = useCatNamesStore();
+  const navigate = useNavigate();
+  const isLoggedIn = useIsLoggedIn();
+  const toggleFavoriteBreed = useBreedFavoritesStore(
+    (state) => state.toggleFavoriteBreed
+  );
+  const isBreedFavorite = useBreedFavoritesStore((state) =>
+    state.favoriteBreeds.includes(Number(id))
+  );
+  const token = useAuthStore((state) => state.token);
 
   useEffect(() => {
     const getBreedInfo = async () => {
@@ -83,6 +96,16 @@ export default function BreedPage({}) {
     getImages();
   }, [id]);
 
+  const handleToggleFavoriteBreed = () => {
+    if (isLoggedIn) {
+      if (breedInfo && token) {
+        toggleFavoriteBreed(breedInfo.id, token);
+      }
+    } else {
+      navigate("/signup");
+    }
+  };
+
   return (
     <div className="flex flex-col mx-4">
       <div className="flex flex-col items-center ">
@@ -95,6 +118,19 @@ export default function BreedPage({}) {
         <div className="flex justify-start  gap-12 my-2">
           <span className="">Origin {breedInfo?.origin}</span>
           <span>Lifespan {breedInfo?.life_span} years</span>
+        </div>
+        <div className="">
+          <button className="" onClick={handleToggleFavoriteBreed}>
+            {isBreedFavorite ? (
+              <FaHeart className="cursor-pointer text-2xl text-blue-500 transition-all duration-200" />
+            ) : (
+              <FaRegHeart
+                className="cursor-pointer text-2xl text-gray-400 transition-all duration-200  
+
+                hover:text-blue-400 hover:scale-110"
+              />
+            )}
+          </button>
         </div>
         <div className=" w-full flex justify-start md:justify-center">
           <h4 className="font-bold ">About</h4>

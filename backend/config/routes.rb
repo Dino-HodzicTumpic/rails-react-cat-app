@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       delete 'breeds/:breed_id', action: :remove_breed
       post 'cats/:cat_id', action: :add_cat
       delete 'cats/:cat_id', action: :remove_cat
+      get 'breeds', action: :breeds
+      get 'cats', action: :cats
       end
     end
   end
