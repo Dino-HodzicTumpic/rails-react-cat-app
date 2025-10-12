@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_many :breeds, through: :user_breeds
   has_many :user_cats, dependent: :destroy
   has_many :cats, through: :user_cats
+  has_many :ratings, dependent: :destroy
 
   validates :sub_id, presence: true, uniqueness: true
   validates :google_id, uniqueness: true

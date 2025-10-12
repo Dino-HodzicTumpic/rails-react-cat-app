@@ -40,5 +40,11 @@ Rails.application.routes.draw do
       get 'cats', action: :cats
       end
     end
+
+
+    resources :cats do
+       resources :ratings, only: [:create, :destroy, :index] 
+       get :average_rating, on: :member
+    end
   end
 end

@@ -20,6 +20,11 @@ class Cat < ApplicationRecord
 
   has_many :user_cats, dependent: :destroy
   has_many :users, through: :user_cats
+  has_many :ratings, dependent: :destroy
+
+  def average_rating
+    ratings.average(:rating).to_f.round(2)
+  end
 
   def image_url
     self[:image_url] || Cloudinary::Utils.cloudinary_url(cloudinary_public_id)

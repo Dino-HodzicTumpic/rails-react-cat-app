@@ -119,8 +119,8 @@ export default function BreedPage({}) {
           <span className="">Origin {breedInfo?.origin}</span>
           <span>Lifespan {breedInfo?.life_span} years</span>
         </div>
-        <div className="">
-          <button className="" onClick={handleToggleFavoriteBreed}>
+        <div className="bg-blue-100 rounded-2xl w-16 md:my-3 hover:bg-blue-200">
+          <button className="p-2" onClick={handleToggleFavoriteBreed}>
             {isBreedFavorite ? (
               <FaHeart className="cursor-pointer text-2xl text-blue-500 transition-all duration-200" />
             ) : (

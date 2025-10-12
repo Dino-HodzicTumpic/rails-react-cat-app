@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_23_165715) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_10_210450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_23_165715) do
     t.index ["cat_api_id"], name: "index_cats_on_cat_api_id", unique: true
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "cat_id", null: false
+    t.integer "rating", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cat_id"], name: "index_ratings_on_cat_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "user_breeds", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "breed_id", null: false
@@ -119,6 +129,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_23_165715) do
     t.index ["sub_id"], name: "index_users_on_sub_id", unique: true
   end
 
+  add_foreign_key "ratings", "cats"
+  add_foreign_key "ratings", "users"
   add_foreign_key "user_breeds", "breeds"
   add_foreign_key "user_breeds", "users"
   add_foreign_key "user_cats", "cats"
