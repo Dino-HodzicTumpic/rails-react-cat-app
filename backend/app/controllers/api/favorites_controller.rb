@@ -26,7 +26,8 @@ module Api
     end
 
     def add_cat
-      result = FavoriteService.add_cat(current_user, params[:cat_id], cat_params[:image_url])
+      result = FavoriteService.add_cat(current_user, params[:cat_id], cat_params[:image_url],
+                                       cat_params[:name])
       render json: result[:data], status: result[:status]
     end
 
@@ -38,7 +39,7 @@ module Api
     private
 
     def cat_params
-      params.require(:cat).permit(:image_url)
+      params.require(:cat).permit(:image_url, :name)
     end
 
     def breed_params

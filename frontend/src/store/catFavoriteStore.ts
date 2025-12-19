@@ -8,7 +8,8 @@ interface CatFavoriteStore {
   toggleFavoriteCat: (
     token: string,
     id: string,
-    imageUrl: string
+    imageUrl: string,
+    catName: string
   ) => Promise<void>;
   clearFavorites: () => void;
 }
@@ -28,7 +29,8 @@ export const useCatFavoriteStore = create<CatFavoriteStore>()(
       toggleFavoriteCat: async (
         token: string,
         id: string,
-        imageUrl: string
+        imageUrl: string,
+        catName: string
       ) => {
         const { favoriteCats } = get();
         const isCurrentlyFavorite = favoriteCats.includes(id);
@@ -47,7 +49,7 @@ export const useCatFavoriteStore = create<CatFavoriteStore>()(
             await catService.removeFavoriteCat(token, id);
           } else {
             // dodaj u favorite
-            await catService.addFavoriteCat(token, id, imageUrl);
+            await catService.addFavoriteCat(token, id, imageUrl, catName);
           }
         } catch (err: any) {
           set({ favoriteCats });

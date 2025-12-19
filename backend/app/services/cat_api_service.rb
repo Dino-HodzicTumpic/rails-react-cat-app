@@ -151,7 +151,7 @@ class CatApiService # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def self.fetch_breed_images(breed_id, user = nil, count = 10)
+  def self.fetch_breed_images(breed_id, user = nil, count = 10) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     response = request_breed_images(breed_id, count)
 
     return [] unless response.success?
@@ -159,9 +159,11 @@ class CatApiService # rubocop:disable Metrics/ClassLength
     cat_api_ids = response.parsed_response.map { |img| img['id'] }
 
     liked_cat_ids = get_liked_cat_ids(user, cat_api_ids)
-
+    # TODO: ADD USER RATING AND AVERAGE RATING IN RESPONSE
     response.parsed_response.map do |img|
-      { url: img['url'], id: img['id'], isLiked: liked_cat_ids.include?(img['id']) }
+      { url: img['url'], id: img['id'], isLiked: liked_cat_ids.include?(img['id']),
+        userRating: user_rating_for_cat(user, img['id']),
+        averageRating: average_cat_rating(img['id']) }
     end
   rescue StandardError => e
     Rails.logger.error "Failed to fetch breed images for #{breed_id}: #{e.message}"
@@ -178,5 +180,21 @@ class CatApiService # rubocop:disable Metrics/ClassLength
     return [] unless user
 
     user.user_cats.joins(:cat).where(cats: { cat_api_id: cat_api_ids }).pluck('cats.cat_api_id')
+  end
+
+  def self.user_rating_for_cat(user, cat_api_id)
+    return nil unless user
+
+    cat = Cat.find_by(cat_api_id: cat_api_id)
+
+    rating = Rating.find_by(user: user, cat: cat) if cat
+    rating&.rating
+  end
+
+  def self.average_cat_rating(cat_api_id)
+    cat = Cat.find_by(cat_api_id: cat_api_id)
+    return nil unless cat
+
+    cat.ratings.average(:rating)
   end
 end

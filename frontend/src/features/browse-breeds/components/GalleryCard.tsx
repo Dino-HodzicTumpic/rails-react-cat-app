@@ -1,15 +1,22 @@
-import React, { use } from "react";
+import React, { useState, useEffect } from "react";
 import type { BreedImages } from "./BreedGallery";
-import { FaRegHeart, FaStar, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaStar, FaHeart, FaRegStar } from "react-icons/fa";
 import { useIsLoggedIn } from "../../../hooks/useIsLoggedIn";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../auth/store/authStore";
+import Modal from "./Modal";
+import { useCatRatingsStore } from "../../../store/catRatingStore";
 
 interface GalleryCardProps {
   image: BreedImages;
   catName: string;
   favoriteCats?: string[];
-  toggleFavorite: (token: string, imageId: string, imageUrl: string) => void;
+  toggleFavorite: (
+    token: string,
+    imageId: string,
+    imageUrl: string,
+    name: string
+  ) => void;
 }
 
 export default function GalleryCard({
@@ -18,18 +25,33 @@ export default function GalleryCard({
   favoriteCats,
   toggleFavorite,
 }: GalleryCardProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const ratings = useCatRatingsStore((state) => state.ratings);
+  const averageRatings = useCatRatingsStore((state) => state.averageRatings);
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
   const token = useAuthStore((state) => state.token);
   const isFavorite = favoriteCats?.includes(image.id) ?? false;
+  const userRating = ratings[image.id] ?? image.userRating;
+  const isRated = userRating !== null;
+  const averageRating =
+    averageRatings[image.id] ?? image.averageRating ?? "N/A";
 
   const handleFavoriteClick = () => {
     //check if loged in if not redirect to loginpage/register else toogleFavorite
     if (isLoggedIn && token) {
-      toggleFavorite(token, image.id, image.url);
+      toggleFavorite(token, image.id, image.url, catName);
     } else {
       navigate("/signup");
     }
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
   };
 
   return (
@@ -42,14 +64,23 @@ export default function GalleryCard({
       <div className=" w-40 md:w-56 xl:w-80">
         <h2 className="font-bold text-lg">{catName}</h2>
         <div>
-          <h2>CatSpace rating: NR</h2>
+          <h2>CatSpace rating: {averageRating}</h2>
         </div>
-        <div className="flex flex-col hover:bg-blue-200 cursor-pointer rounded-xl p-1">
-          <h2>Your rating</h2>
-        </div>
-        <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-blue-200 rounded-xl p-1 ">
-          <FaStar color="blue" />
-          <span className="">Rate</span>
+
+        <div
+          className="flex items-center justify-center gap-1 cursor-pointer hover:bg-blue-200 rounded-xl p-1 "
+          onClick={openModal}
+        >
+          {isRated ? (
+            <>
+              <span className="">Your rating: {userRating}/10</span>{" "}
+              <FaStar color="blue" />
+            </>
+          ) : (
+            <>
+              <span className="">Rate</span> <FaRegStar color="blue" />
+            </>
+          )}
         </div>
 
         <button className=" mt-1" onClick={handleFavoriteClick}>
@@ -63,6 +94,16 @@ export default function GalleryCard({
           )}
         </button>
       </div>
+
+      {isOpen && (
+        <Modal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          catName={catName}
+          catPicUrl={image.url}
+          catId={image.id}
+        />
+      )}
     </div>
   );
 }

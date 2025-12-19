@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useAuthStore } from "../features/auth/store/authStore";
-
+//not used it was replaced by catFavoritesStore and breedFavoriteStore
 export const useFavorites = (initialFavorites: string[] = []) => {
   const [favorites, setFavorites] = useState<Set<string>>(
     new Set(initialFavorites)

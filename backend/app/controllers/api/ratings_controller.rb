@@ -2,17 +2,18 @@ module Api
   class RatingsController < ApplicationController
     before_action :authenticate_request!
 
-    def add_rating
-      result = RatingService.add_rating(current_user, params[:cat_id], params[:rating])
+    def create
+      result = RatingService.add_rating(current_user, params[:cat_id], params[:rating],
+                                        params[:cat_name])
       render json: result[:data], status: result[:status]
     end
 
-    def remove_rating
+    def destroy
       result = RatingService.remove_rating(current_user, params[:cat_id])
       render json: result[:data], status: result[:status]
     end
 
-    def rating
+    def index
       result = RatingService.get_rating(current_user, params[:cat_id])
       render json: result[:data], status: result[:status]
     end

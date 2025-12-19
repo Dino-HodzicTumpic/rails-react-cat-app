@@ -11,6 +11,8 @@ export interface BreedImages {
   id: string;
   url: string;
   isLiked: boolean;
+  userRating: number | null;
+  averageRating: number | null;
 }
 
 interface BreedGalleryProps {

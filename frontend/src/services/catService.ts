@@ -1,5 +1,4 @@
 import axios from "axios";
-import { GiToken } from "react-icons/gi";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,11 +10,16 @@ export const catService = {
     return response.data.map((cat: any) => cat.cat_api_id);
   },
 
-  addFavoriteCat: async (token: string, id: string, imageUrl: string) => {
+  addFavoriteCat: async (
+    token: string,
+    id: string,
+    imageUrl: string,
+    name: string
+  ) => {
     try {
       axios.post(
         `${API_URL}/favorites/cats/${id}`,
-        { cat: { image_url: imageUrl } },
+        { cat: { image_url: imageUrl, name: name } },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -32,6 +36,38 @@ export const catService = {
       });
     } catch (err) {
       console.log("Error removing favorite cat:", err);
+    }
+  },
+
+  addCatRating: async (
+    token: string,
+    id: string,
+    rating: number,
+    cat_name: string
+  ) => {
+    try {
+      const url = `${API_URL}/cats/${id}/ratings`;
+
+      console.log("Trying to POST to URL:", url);
+      axios.post(
+        `${API_URL}/cats/${id}/ratings`,
+        { rating: rating, cat_name: cat_name },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (err) {
+      console.error("Error while sending cat rating to backend", err);
+    }
+  },
+
+  removeCatRating: async (token: string, id: string) => {
+    try {
+      axios.delete(`${API_URL}/cats/${id}/ratings`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (err) {
+      console.log("Error removing cat rating:", err);
     }
   },
 };

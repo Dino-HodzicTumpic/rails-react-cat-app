@@ -12,6 +12,7 @@ import { useIsLoggedIn } from "../../../hooks/useIsLoggedIn";
 import { useBreedFavoritesStore } from "../../../store/breedFavoritesStore";
 import { useAuthStore } from "../../auth/store/authStore";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import Modal from "../components/Modal";
 
 interface BreedInfo {
   id: number;
@@ -38,12 +39,15 @@ interface BreedImage {
   url: string;
   id: string;
   isLiked: boolean;
+  userRating: number | null;
+  averageRating: number | null;
 }
 
 export default function BreedPage({}) {
   const { id } = useParams<{ id: string }>();
   const [breedInfo, setBreedInfo] = useState<BreedInfo | null>(null);
   const [breedImages, setBreedImages] = useState<BreedImage[] | null>(null);
+
   const { catNames, setCatName } = useCatNamesStore();
   const navigate = useNavigate();
   const isLoggedIn = useIsLoggedIn();
@@ -77,7 +81,7 @@ export default function BreedPage({}) {
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/breeds/${id}/images`
         );
-
+        console.log("breed images response:", response.data);
         response.data.breed_images.forEach((img: BreedImage) => {
           catNames[img.id] ??
             (() => {
@@ -86,9 +90,8 @@ export default function BreedPage({}) {
               return newName;
             })();
         });
-        setBreedImages(response.data.breed_images);
 
-        console.log(response);
+        setBreedImages(response.data.breed_images);
       } catch (err) {
         console.log("error: ", err);
       }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./axiosSetup.ts";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpPage from "./features/auth/pages/SignUpPage";

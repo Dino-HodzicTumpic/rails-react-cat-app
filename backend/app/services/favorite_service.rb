@@ -24,8 +24,9 @@ class FavoriteService
     { data: { error: "Unexpected error: #{e.message}" }, status: :bad_request }
   end
 
-  def self.add_cat(user, cat_api_id, image_url) # rubocop:disable Metrics/MethodLength
+  def self.add_cat(user, cat_api_id, image_url, name) # rubocop:disable Metrics/MethodLength
     cat = Cat.find_or_initialize_by(cat_api_id: cat_api_id)
+    cat.name = name if name.present?
     cat.save! if cat.new_record?
 
     user.user_cats.find_or_create_by!(cat: cat)
