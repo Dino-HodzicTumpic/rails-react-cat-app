@@ -46,5 +46,12 @@ Rails.application.routes.draw do
        resources :ratings, only: [:create, :destroy, :index] 
        get :average_rating, on: :member
     end
+
+    resources :search, only: [] do
+      collection do
+        get :breeds 
+        get :breeds_autocomplete
+      end
+    end
   end
 end
