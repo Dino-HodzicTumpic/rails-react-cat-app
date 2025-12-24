@@ -16,5 +16,14 @@ module Api
       render json: { error: 'An error occurred while fetching search results for breeds' },
              status: :bad_request
     end
+
+    def breeds_with_filters
+      search_results = SearchService.filtered_results(params[:filters])
+      render json: { search_results: search_results }, status: :ok
+    rescue StandardError => e
+      Rails.logger.error "SearchService filtered/advanced search breeds error: #{e.message}"
+      render json: { error: 'An error occurred while fetching advanced search results for breeds' },
+             status: :bad_request
+    end
   end
 end
