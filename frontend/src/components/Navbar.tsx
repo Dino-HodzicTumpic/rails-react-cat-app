@@ -45,7 +45,7 @@ export default function Navbar() {
               )}
             </li>
           </ul>
-          <div className="hidden md:block">
+          <div className="hidden md:block md:w-1/4 lg:w-1/3">
             <SearchBar></SearchBar>
           </div>
           {/* hamburger ikona (vidljiva samo na malim ekranima) */}

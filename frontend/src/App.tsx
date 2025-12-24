@@ -10,6 +10,8 @@ import LoginPage from "./features/auth/pages/LoginPage";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import BreedPage from "./features/browse-breeds/pages/BreedPage";
+import SearchResults from "./features/search/components/SearchResults.tsx";
+import SearchPage from "./features/search/pages/SearchPage.tsx";
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
             <Route path="/signup/confirm" element={<EmailConfirmed />} />
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/breeds/:id" element={<BreedPage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </main>
       </div>

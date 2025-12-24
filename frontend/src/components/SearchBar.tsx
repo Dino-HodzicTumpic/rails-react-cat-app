@@ -32,10 +32,11 @@ export default function SearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [closeAutocomplete]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     closeAutocomplete();
-    search();
+    await search();
+    navigate(`/search?q=${query}`);
   };
 
   const handleSuggestionClick = (suggestion: any) => {
@@ -44,16 +45,19 @@ export default function SearchBar() {
   };
 
   return (
-    <div className=" relative flex items-center gap-2 mt-0.5 ">
-      <form onSubmit={handleSubmit}>
-        <FaSearch className=" absolute right-40 top-1.5 md:top-2 md:right-42 w-5 h-5 text-gray-500" />
+    <div className=" relative flex items-center gap-2 mt-0.5 md:w-full ">
+      <form className="w-full" onSubmit={handleSearch}>
+        <FaSearch
+          className=" absolute right-40 top-1.5 md:top-2 md:right-6 w-5 h-5 text-gray-500 cursor-pointer"
+          onClick={handleSearch}
+        />
         <input
           type="text"
           ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search breeds"
-          className="outline-none  rounded  p-1 md:p-2 text-center bg-gray-200"
+          placeholder="Search breeds by name"
+          className="outline-none w-full  rounded  p-1 md:p-2 text-center bg-gray-200"
         />
       </form>
 
