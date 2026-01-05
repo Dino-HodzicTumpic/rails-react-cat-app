@@ -19,7 +19,7 @@ export default function ResultCard({
   sample_image_url,
 }: ResultCardProps) {
   const { favoriteBreeds, toggleFavoriteBreed } = useBreedFavoritesStore();
-  const isBreedFavorite = favoriteBreeds.includes(0); // Replace 0 with actual breed id
+  const isBreedFavorite = favoriteBreeds.includes(id);
   const token = useAuthStore((state) => state.token);
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ export default function ResultCard({
   };
   return (
     <div
-      className="border rounded flex-col mt-6 "
+      className="border rounded flex-col mt-6"
       onClick={() => navigate(`/breeds/${id}`)}
     >
       <img

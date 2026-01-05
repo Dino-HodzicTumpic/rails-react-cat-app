@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       collection do
         get :breeds 
         get :breeds_autocomplete
+        post '/breeds/advanced' , action: :breeds_with_filters
       end
     end
   end

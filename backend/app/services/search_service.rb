@@ -15,28 +15,17 @@ class SearchService
                                                            :sample_image_url, :description)
   end
 
-  def delf.filtered_results(_filters) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-    # ako nije poslan neki min onda je default 1 a max je default 5
-    min_intelligence = params[:min_intelligence]&.to_i || 1
-    max_intelligence = params[:max_intelligence]&.to_i || 5
-    min_affection = params[:min_intelligence]&.to_i || 1
-    max_affection = params[:max_intelligence]&.to_i || 5
-    min_child_friendly = params[:min_intelligence]&.to_i || 1
-    max_child_friendly = params[:max_intelligence]&.to_i || 5
-    min_dog_friendly = params[:min_intelligence]&.to_i || 1
-    max_dog_friendly = params[:max_intelligence]&.to_i || 5
-    min_stranger_friendly = params[:min_intelligence]&.to_i || 1
-    max_stranger_friendly = params[:max_intelligence]&.to_i || 5
-    min_social_needs = params[:min_intelligence]&.to_i || 1
-    max_social_needs = params[:max_intelligence]&.to_i || 5
-    min_vocalisation = params[:min_intelligence]&.to_i || 1
-    max_vocalisation = params[:max_intelligence]&.to_i || 5
-    min_energy = params[:min_intelligence]&.to_i || 1
-    max_energy = params[:max_intelligence]&.to_i || 5
-    min_health_issues = params[:min_intelligence]&.to_i || 1
-    max_health_issues = params[:max_intelligence]&.to_i || 5
-    min_grooming = params[:min_intelligence]&.to_i || 1
-    max_grooming = params[:max_intelligence]&.to_i || 5
+  def self.filtered_results(filters) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    min_intelligence, max_intelligence = extract_filter_range(filters, :intelligence)
+    min_affection, max_affection = extract_filter_range(filters, :affection)
+    min_child_friendly, max_child_friendly = extract_filter_range(filters, :child_friendly)
+    min_dog_friendly, max_dog_friendly = extract_filter_range(filters, :dog_friendly)
+    min_stranger_friendly, max_stranger_friendly = extract_filter_range(filters, :stranger_friendly)
+    min_social_needs, max_social_needs = extract_filter_range(filters, :social_needs)
+    min_vocalisation, max_vocalisation = extract_filter_range(filters, :vocalisation)
+    min_health_issues, max_health_issues = extract_filter_range(filters, :health_issues)
+    min_energy, max_energy = extract_filter_range(filters, :energy)
+    min_grooming, max_grooming = extract_filter_range(filters, :grooming)
 
     Breed.where("intelligence between ? AND ? AND
                           affection_level between ? AND ? AND
@@ -58,5 +47,15 @@ class SearchService
                 min_energy, max_energy,
                 min_stranger_friendly, max_stranger_friendly,
                 min_grooming, max_grooming)
+  end
+
+  def self.extract_filter_range(filters, key)
+    default_min = 1
+    defalt_max = 5
+
+    range = filters[key.to_s] || {}
+    min = range['min'] || default_min
+    max = range['max'] || defalt_max
+    [min.to_i, max.to_i]
   end
 end

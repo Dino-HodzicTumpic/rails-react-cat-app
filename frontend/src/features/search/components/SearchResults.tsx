@@ -13,7 +13,7 @@ export default function SearchResults() {
     );
   }
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col w-1/2 mx-auto">
       <div className="mt-4">
         <h2 className="text-2xl md:text-3xl font-bold">
           Search results for: {query}
@@ -26,7 +26,7 @@ export default function SearchResults() {
           <p>No breeds found for your search</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1  md:gap-y-6 gap-x-28 mb-4 ">
+        <div className="grid grid-cols-1  md:gap-y-6 gap-x-28 mb-4  ">
           {results.map((breed) => (
             <ResultCard
               key={breed.id}

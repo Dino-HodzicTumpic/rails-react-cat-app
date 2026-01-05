@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/CatSpaceLogo.jpg";
 import { useIsLoggedIn } from "../hooks/useIsLoggedIn";
 import SearchBar from "./SearchBar";
 import { HiMenu, HiX } from "react-icons/hi";
+import { FaFilter } from "react-icons/fa";
+import { HiOutlineFilter } from "react-icons/hi";
 
 export default function Navbar() {
   const isLoggedIn = useIsLoggedIn();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   return (
     <div className="sticky top-0 left-0 right-0  z-50 w-full bg-blue-400 ">
@@ -45,7 +48,13 @@ export default function Navbar() {
               )}
             </li>
           </ul>
-          <div className="hidden md:block md:w-1/4 lg:w-1/3">
+          <div className="hidden md:flex md:space-x-4 md:w-1/4 lg:w-1/3">
+            <button
+              onClick={() => navigate("/search-filters")}
+              className="cursor-pointer"
+            >
+              <FaFilter size={20} />
+            </button>
             <SearchBar></SearchBar>
           </div>
           {/* hamburger ikona (vidljiva samo na malim ekranima) */}
@@ -63,7 +72,7 @@ export default function Navbar() {
         {/* mobilni meni (prikaže se samo kad je isOpen = true) */}
         {isOpen && (
           <div className="md:hidden">
-            <ul className="flex flex-col gap-4 p-4">
+            <ul className="flex flex-col gap-4 p-4 items-center">
               <li>
                 <NavLink to="/">Home</NavLink>
               </li>
@@ -83,6 +92,15 @@ export default function Navbar() {
                 ) : (
                   <NavLink to="/login">Log in</NavLink>
                 )}
+              </li>
+              <li>
+                <button
+                  onClick={() => navigate("/search-filters")}
+                  className="cursor-pointer flex justify-center items-center"
+                >
+                  <FaFilter size={20} />
+                  <span>Advanced Search</span>
+                </button>
               </li>
             </ul>
           </div>

@@ -12,6 +12,8 @@ import SearchBar from "./components/SearchBar";
 import BreedPage from "./features/browse-breeds/pages/BreedPage";
 import SearchResults from "./features/search/components/SearchResults.tsx";
 import SearchPage from "./features/search/pages/SearchPage.tsx";
+import AdvancedSearch from "./features/search/pages/AdvancedSearch.tsx";
+import AdvancedSearchPage from "./features/search/pages/AdvancedSearchResultsPage.tsx";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/breeds/:id" element={<BreedPage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/advanced-search" element={<AdvancedSearchPage />} />
+            <Route path="/search-filters" element={<AdvancedSearch />} />
           </Routes>
         </main>
       </div>
