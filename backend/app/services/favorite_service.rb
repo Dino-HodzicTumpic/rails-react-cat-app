@@ -65,6 +65,20 @@ class FavoriteService
     { data: { cats: cats }, status: :ok }
   end
 
+  def self.get_user_favorite_cats_with_ratings(user)
+    user_ratings = user.ratings.index_by(&:cat_id)
+    user.cats.includes(:ratings).map do |cat|
+      {
+        cat_api_id: cat.cat_api_id,
+        name: cat.name,
+        image_url: cat.image_url,
+        average_rating: cat.average_rating,
+        rating: user_ratings[cat.id]&.rating
+
+      }
+    end
+  end
+
   def self.get_user_favorite_breeds(user)
     breeds = user.breeds
     { data: { breeds: breeds }, status: :ok }

@@ -36,6 +36,14 @@ module Api
       render json: result[:data], status: result[:status]
     end
 
+    def cats_with_ratings
+      favorite_cats = FavoriteService.get_user_favorite_cats_with_ratings(current_user)
+      render json: { favorite_cats: favorite_cats }, status: :ok
+    rescue StandardError => e
+      Rails.logger.error "FavoritesController cats_with_ratings error: #{e.message}"
+      render json: { error: e.message }, status: :bad_request
+    end
+
     private
 
     def cat_params
