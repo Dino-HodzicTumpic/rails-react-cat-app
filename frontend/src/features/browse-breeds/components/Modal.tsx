@@ -15,6 +15,7 @@ interface ModalProps {
   catName: string;
   catPicUrl: string;
   catId: string;
+  breedId: number;
 }
 
 export default function Modal({
@@ -23,6 +24,7 @@ export default function Modal({
   catName,
   catPicUrl,
   catId,
+  breedId,
 }: ModalProps) {
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [selectedRating, setSelectedRating] = useState<number>(0);
@@ -47,7 +49,7 @@ export default function Modal({
     if (token) {
       closeModal();
       try {
-        addCatRating(token, catId, selectedRating, catName);
+        addCatRating(token, catId, selectedRating, catName, catPicUrl, breedId);
       } catch (err) {
         console.error("Error while trying to send rating to backend", err);
       }

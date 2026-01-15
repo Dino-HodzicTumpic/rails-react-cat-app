@@ -6,8 +6,11 @@ module Api
     def index; end
 
     def breeds
-      result = FavoriteService.get_user_favorite_breeds(current_user)
-      render json: result[:data], status: result[:status]
+      favorite_breeds = FavoriteService.get_user_favorite_breeds(current_user)
+      render json: { favorite_breeds: favorite_breeds }, status: :ok
+    rescue StandardError => e
+      Rails.logger.error "FavoritesController breeds error: #{e.message}"
+      render json: { error: e.message }, status: :bad_request
     end
 
     def cats
@@ -27,7 +30,7 @@ module Api
 
     def add_cat
       result = FavoriteService.add_cat(current_user, params[:cat_id], cat_params[:image_url],
-                                       cat_params[:name])
+                                       cat_params[:name], cat_params[:breed_id])
       render json: result[:data], status: result[:status]
     end
 
@@ -47,7 +50,7 @@ module Api
     private
 
     def cat_params
-      params.require(:cat).permit(:image_url, :name)
+      params.require(:cat).permit(:image_url, :name, :breed_id)
     end
 
     def breed_params

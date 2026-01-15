@@ -4,7 +4,7 @@ module Api
 
     def create
       result = RatingService.add_rating(current_user, params[:cat_id], params[:rating],
-                                        params[:cat_name])
+                                        params[:cat_name], params[:image_url], params[:breed_id])
       render json: result[:data], status: result[:status]
     end
 

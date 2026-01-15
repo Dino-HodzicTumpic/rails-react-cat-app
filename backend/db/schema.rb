@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_10_210450) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_15_134536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_10_210450) do
     t.datetime "updated_at", null: false
     t.string "cloudinary_public_id"
     t.string "name"
+    t.bigint "breed_id", null: false
+    t.index ["breed_id"], name: "index_cats_on_breed_id"
     t.index ["cat_api_id"], name: "index_cats_on_cat_api_id", unique: true
   end
 
@@ -129,6 +131,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_10_210450) do
     t.index ["sub_id"], name: "index_users_on_sub_id", unique: true
   end
 
+  add_foreign_key "cats", "breeds"
   add_foreign_key "ratings", "cats"
   add_foreign_key "ratings", "users"
   add_foreign_key "user_breeds", "breeds"

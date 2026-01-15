@@ -9,7 +9,9 @@ interface CatRatingStore {
     token: string,
     id: string,
     rating: number,
-    cat_name: string
+    cat_name: string,
+    image_url: string,
+    breedId: number
   ) => Promise<void>;
   removeCatRating: (token: string, id: string) => Promise<void>;
   clearRatings: () => void;
@@ -24,7 +26,9 @@ export const useCatRatingsStore = create<CatRatingStore>()(
         token: string,
         id: string,
         rating: number,
-        cat_name: string
+        cat_name: string,
+        image_url: string,
+        breedId: number
       ) => {
         const { ratings, averageRatings } = get();
 
@@ -40,7 +44,14 @@ export const useCatRatingsStore = create<CatRatingStore>()(
 
         //updateaj i na backendu
         try {
-          await catService.addCatRating(token, id, rating, cat_name);
+          await catService.addCatRating(
+            token,
+            id,
+            rating,
+            cat_name,
+            image_url,
+            breedId
+          );
         } catch (err) {
           set({ ratings });
           console.error("Error updating baceknd with cat rating", err);

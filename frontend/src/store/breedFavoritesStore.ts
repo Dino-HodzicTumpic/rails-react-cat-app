@@ -6,6 +6,8 @@ interface BreedFavoritesStore {
   favoriteBreeds: number[];
   fetchFavoriteBreeds: (token: string) => Promise<void>;
   toggleFavoriteBreed: (breedId: number, token: string) => Promise<void>;
+  removeFavoriteBreed: (token: string, breedId: number) => void;
+  setFavoriteBreeds: (ids: number[]) => void;
   clearFavorites: () => void;
 }
 
@@ -15,10 +17,38 @@ export const useBreedFavoritesStore = create<BreedFavoritesStore>()(
       favoriteBreeds: [],
       fetchFavoriteBreeds: async (token: string) => {
         try {
-          const breedIds = await breedService.getFavoriteBreeds(token);
+          const breedIds = await breedService.getFavoriteBreeds(token, true);
           set({ favoriteBreeds: breedIds });
         } catch (err) {
           console.error("Failed to fetch favorite breeds:", err);
+        }
+      },
+
+      setFavoriteBreeds: (ids: number[]) => {
+        set({ favoriteBreeds: ids });
+      },
+
+      removeFavoriteBreed: async (token: string, breedId: number) => {
+        const { favoriteBreeds } = get();
+        const isCurrentlyFavorite = favoriteBreeds.includes(breedId);
+
+        if (isCurrentlyFavorite) {
+          const newFavorites = favoriteBreeds.filter((id) => id !== breedId);
+          set({ favoriteBreeds: newFavorites });
+        }
+
+        try {
+          //makni iz favorita
+          await breedService.removeFavoriteBreed(breedId, token);
+        } catch (err: any) {
+          set({ favoriteBreeds });
+          //  Ispiši error s backenda
+          const errorMessage =
+            err.response?.data?.error ||
+            err.response?.data?.message ||
+            err.message ||
+            "Unknown error occurred";
+          console.error("Error removing breed from favorite:", errorMessage);
         }
       },
 

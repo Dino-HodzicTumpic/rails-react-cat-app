@@ -8,16 +8,23 @@
 #  name                 :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  breed_id             :bigint           not null
 #  cat_api_id           :string           not null
 #  cloudinary_public_id :string
 #
 # Indexes
 #
+#  index_cats_on_breed_id    (breed_id)
 #  index_cats_on_cat_api_id  (cat_api_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (breed_id => breeds.id)
 #
 class Cat < ApplicationRecord
   validates :cat_api_id, presence: true, uniqueness: true
 
+  belongs_to :breed
   has_many :user_cats, dependent: :destroy
   has_many :users, through: :user_cats
   has_many :ratings, dependent: :destroy

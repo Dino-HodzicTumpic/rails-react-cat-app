@@ -10,18 +10,21 @@ import { useCatRatingsStore } from "../../../store/catRatingStore";
 interface GalleryCardProps {
   image: BreedImages;
   catName: string;
+  breedId?: number;
   favoriteCats?: string[];
   toggleFavorite: (
     token: string,
     imageId: string,
     imageUrl: string,
-    name: string
+    name: string,
+    breedId?: number
   ) => void;
 }
 
 export default function GalleryCard({
   image,
   catName,
+  breedId,
   favoriteCats,
   toggleFavorite,
 }: GalleryCardProps) {
@@ -40,7 +43,7 @@ export default function GalleryCard({
   const handleFavoriteClick = () => {
     //check if loged in if not redirect to loginpage/register else toogleFavorite
     if (isLoggedIn && token) {
-      toggleFavorite(token, image.id, image.url, catName);
+      toggleFavorite(token, image.id, image.url, catName, breedId);
     } else {
       navigate("/signup");
     }
@@ -102,6 +105,7 @@ export default function GalleryCard({
           catName={catName}
           catPicUrl={image.url}
           catId={image.id}
+          breedId={breedId!}
         />
       )}
     </div>

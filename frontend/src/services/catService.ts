@@ -3,23 +3,35 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const catService = {
-  getFavoriteCats: async (token: string) => {
+  getFavoriteCats: async (token: string, idsOnly: boolean = false) => {
     const response = await axios.get(`${API_URL}/favorites/cats`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return response.data.map((cat: any) => cat.cat_api_id);
+
+    if (idsOnly) {
+      return response.data.map((cat: any) => cat.cat_api_id);
+    }
+    return response.data;
+  },
+
+  getFavoriteCatsWithRatings: async (token: string) => {
+    const response = await axios.get(`${API_URL}/favorites/cats_with_ratings`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
   },
 
   addFavoriteCat: async (
     token: string,
     id: string,
     imageUrl: string,
-    name: string
+    name: string,
+    breedId: number
   ) => {
     try {
       axios.post(
         `${API_URL}/favorites/cats/${id}`,
-        { cat: { image_url: imageUrl, name: name } },
+        { cat: { image_url: imageUrl, name: name, breed_id: breedId } },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -43,7 +55,9 @@ export const catService = {
     token: string,
     id: string,
     rating: number,
-    cat_name: string
+    cat_name: string,
+    image_url: string,
+    breedId: number
   ) => {
     try {
       const url = `${API_URL}/cats/${id}/ratings`;
@@ -51,7 +65,12 @@ export const catService = {
       console.log("Trying to POST to URL:", url);
       axios.post(
         `${API_URL}/cats/${id}/ratings`,
-        { rating: rating, cat_name: cat_name },
+        {
+          rating: rating,
+          cat_name: cat_name,
+          image_url: image_url,
+          breed_id: breedId,
+        },
         {
           headers: { Authorization: `Bearer ${token}` },
         }

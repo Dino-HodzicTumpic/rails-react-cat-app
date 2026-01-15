@@ -46,6 +46,7 @@
 #  index_breeds_on_featured    (featured)
 #
 class Breed < ApplicationRecord
+  has_many :cats, dependent: :nullify
   has_many :user_breeds, dependent: :destroy
   has_many :users, through: :user_breeds
   validates :breed_name, presence: true, uniqueness: true

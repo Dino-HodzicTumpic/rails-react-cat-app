@@ -17,9 +17,10 @@ export interface BreedImages {
 
 interface BreedGalleryProps {
   images: BreedImages[];
+  breedId?: number;
 }
 
-export default function BreedGallery({ images }: BreedGalleryProps) {
+export default function BreedGallery({ images, breedId }: BreedGalleryProps) {
   const { catNames } = useCatNamesStore();
 
   const initialFavorites = images
@@ -37,6 +38,7 @@ export default function BreedGallery({ images }: BreedGalleryProps) {
             key={image.id}
             image={image}
             catName={catNames[image.id]}
+            breedId={breedId}
             favoriteCats={favoriteCats}
             toggleFavorite={toggleFavoriteCat}
           />

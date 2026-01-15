@@ -24,9 +24,14 @@ class FavoriteService
     { data: { error: "Unexpected error: #{e.message}" }, status: :bad_request }
   end
 
-  def self.add_cat(user, cat_api_id, image_url, name) # rubocop:disable Metrics/MethodLength
+  def self.add_cat(user, cat_api_id, image_url, name, breed_id) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+    breed = Breed.find_by(id: breed_id)
+
+    return { data: { error: 'Breed not found' }, status: :not_found } unless breed
+
     cat = Cat.find_or_initialize_by(cat_api_id: cat_api_id)
     cat.name = name if name.present?
+    cat.breed = breed
     cat.save! if cat.new_record?
 
     user.user_cats.find_or_create_by!(cat: cat)
@@ -65,7 +70,7 @@ class FavoriteService
     { data: { cats: cats }, status: :ok }
   end
 
-  def self.get_user_favorite_cats_with_ratings(user)
+  def self.get_user_favorite_cats_with_ratings(user) # rubocop:disable Metrics/MethodLength
     user_ratings = user.ratings.index_by(&:cat_id)
     user.cats.includes(:ratings).map do |cat|
       {
@@ -73,14 +78,17 @@ class FavoriteService
         name: cat.name,
         image_url: cat.image_url,
         average_rating: cat.average_rating,
-        rating: user_ratings[cat.id]&.rating
+        rating: user_ratings[cat.id]&.rating,
+        breed_id: cat.breed_id,
+        breed_name: cat.breed.breed_name
 
       }
     end
   end
 
   def self.get_user_favorite_breeds(user)
-    breeds = user.breeds
-    { data: { breeds: breeds }, status: :ok }
+    user.breeds.map do |breed|
+      { id: breed.id, name: breed.breed_name, image_url: breed.sample_image_url }
+    end
   end
 end

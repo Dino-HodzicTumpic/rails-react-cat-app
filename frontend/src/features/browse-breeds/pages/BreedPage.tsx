@@ -197,7 +197,7 @@ export default function BreedPage({}) {
       </div>
 
       {breedImages ? (
-        <BreedGallery images={breedImages} />
+        <BreedGallery images={breedImages} breedId={breedInfo?.id} />
       ) : (
         <SkeletonGallery />
       )}

@@ -35,7 +35,7 @@ export default function Navbar() {
             </li>
             <li>
               {isLoggedIn ? (
-                <NavLink to="/favorites">Favorites</NavLink>
+                <NavLink to="/favorites?type=cats">Favorites</NavLink>
               ) : (
                 <NavLink to="signup">Sign up</NavLink>
               )}
@@ -81,7 +81,7 @@ export default function Navbar() {
               </li>
               <li>
                 {isLoggedIn ? (
-                  <NavLink to="/favorites">Favorites</NavLink>
+                  <NavLink to="/favorites?type=cats">Favorites</NavLink>
                 ) : (
                   <NavLink to="signup">Sign up</NavLink>
                 )}
