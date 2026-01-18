@@ -1,6 +1,7 @@
 import React from "react";
 import { useBreedSearchStore } from "../../../store/breedSearchStore";
-import ResultCard from "../components/ResultCard";
+
+import BreedCard from "../../../components/BreedCard";
 
 export default function AdvancedSearchResultsPage() {
   const isLoading = useBreedSearchStore((state) => state.isLoading);
@@ -15,7 +16,7 @@ export default function AdvancedSearchResultsPage() {
   return (
     <div>
       {results.map((result) => (
-        <ResultCard
+        <BreedCard
           key={result.id}
           id={result.id}
           breed_name={result.breed_name}

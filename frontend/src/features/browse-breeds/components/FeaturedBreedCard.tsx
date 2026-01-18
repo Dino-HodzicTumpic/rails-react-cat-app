@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { DiVim } from "react-icons/di";
 import { Link, useNavigate } from "react-router-dom";
 
-interface BreedCardProps {
+interface FeaturedBreedCardProps {
   breedId: number;
   breed_name: string;
   description: string;
   sample_image_url: string;
 }
 
-export default function BreedCard({
+export default function FeaturedBreedCard({
   breedId,
   breed_name,
   description,
   sample_image_url,
-}: BreedCardProps) {
+}: FeaturedBreedCardProps) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const navigate = useNavigate();
 

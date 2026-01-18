@@ -1,23 +1,23 @@
 import React from "react";
-import { useBreedFavoritesStore } from "../../../store/breedFavoritesStore";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useIsLoggedIn } from "../../../hooks/useIsLoggedIn";
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../auth/store/authStore";
 
-interface ResultCardProps {
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useBreedFavoritesStore } from "../store/breedFavoritesStore";
+import { useAuthStore } from "../features/auth/store/authStore";
+
+interface BreedCardProps {
   id: number;
   breed_name: string;
   origin: string;
   sample_image_url: string;
 }
 
-export default function ResultCard({
+export default function BreedCard({
   id,
   breed_name,
   origin,
   sample_image_url,
-}: ResultCardProps) {
+}: BreedCardProps) {
   const { favoriteBreeds, toggleFavoriteBreed } = useBreedFavoritesStore();
   const isBreedFavorite = favoriteBreeds.includes(id);
   const token = useAuthStore((state) => state.token);
