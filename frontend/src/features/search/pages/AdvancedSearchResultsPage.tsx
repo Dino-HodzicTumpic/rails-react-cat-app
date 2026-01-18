@@ -14,15 +14,21 @@ export default function AdvancedSearchResultsPage() {
   }
   return (
     <div>
-      {results.map((result) => (
-        <ResultCard
-          key={result.id}
-          id={result.id}
-          breed_name={result.breed_name}
-          origin={result.origin}
-          sample_image_url={result.sample_image_url}
-        />
-      ))}
+      {results.length === 0 ? (
+        <div>
+          <p>No breeds found for your search</p>
+        </div>
+      ) : (
+        results.map((result) => (
+          <ResultCard
+            key={result.id}
+            id={result.id}
+            breed_name={result.breed_name}
+            origin={result.origin}
+            sample_image_url={result.sample_image_url}
+          />
+        ))
+      )}
     </div>
   );
 }
