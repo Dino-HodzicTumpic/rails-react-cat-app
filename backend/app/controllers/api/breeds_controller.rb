@@ -1,7 +1,12 @@
 module Api
   class BreedsController < ApplicationController
-    # ovo vjv nece trebat
-    def index; end
+    def index
+      breeds = BreedService.list_all_breeds
+      render json: { breeds: breeds }, status: :ok
+    rescue StandardError => e
+      Rails.logger.error "BreedService list all breeds error: #{e.message}"
+      render json: { error: 'An error occurred while fetching breeds' }, status: :bad_request
+    end
 
     def images
       breed = Breed.find(params[:id])

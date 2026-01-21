@@ -15,6 +15,7 @@ import SearchPage from "./features/search/pages/SearchPage.tsx";
 import AdvancedSearch from "./features/search/pages/AdvancedSearch.tsx";
 import AdvancedSearchPage from "./features/search/pages/AdvancedSearchResultsPage.tsx";
 import FavoritesPage from "./features/favorites/pages/FavoritesPage.tsx";
+import BreedListPage from "./features/breeds-list/pages/BreedListPage.tsx";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="/advanced-search" element={<AdvancedSearchPage />} />
             <Route path="/search-filters" element={<AdvancedSearch />} />
             <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/browse-breeds" element={<BreedListPage />} />
           </Routes>
         </main>
       </div>

@@ -1,5 +1,5 @@
 class BreedService
-  def list_all_breeds
+  def self.list_all_breeds
     breeds = Breed.all
 
     breeds.map do |breed|

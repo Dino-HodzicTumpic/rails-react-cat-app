@@ -33,14 +33,14 @@ export default function BreedCard({
   };
   return (
     <div
-      className="border rounded flex-col mt-6"
+      className="border rounded flex-col mt-6 "
       onClick={() => navigate(`/breeds/${id}`)}
     >
       <img
         src={sample_image_url}
         alt={`${breed_name} picture`}
         className="cursor-pointer w-full h-40 
-        md:h-96  object-cover "
+        md:h-96   "
       />
 
       <div className="flex flex-col items-center gap-1 p-2">

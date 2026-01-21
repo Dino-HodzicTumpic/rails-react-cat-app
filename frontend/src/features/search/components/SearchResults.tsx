@@ -1,6 +1,6 @@
 import React from "react";
 import { useBreedSearchStore } from "../../../store/breedSearchStore";
-import ResultCard from "./ResultCard";
+import BreedCard from "../../../components/BreedCard";
 
 export default function SearchResults() {
   const { results, totalCount, isLoading, query } = useBreedSearchStore();
@@ -28,7 +28,7 @@ export default function SearchResults() {
       ) : (
         <div className="grid grid-cols-1  md:gap-y-6 gap-x-28 mb-4  ">
           {results.map((breed) => (
-            <ResultCard
+            <BreedCard
               key={breed.id}
               id={breed.id}
               breed_name={breed.breed_name}
