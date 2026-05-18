@@ -3,7 +3,7 @@
 **CatSpace** is a comprehensive web application for cat lovers to explore breeds, manage favorites, and rate individual cats. Built with a **React (TypeScript)** frontend and a **Ruby on Rails** backend, it demonstrates complex data filtering, asynchronous processing, and advanced state management.
 
 ## 🚀 Live Demo
-[Check out the live app here](https://your-demo-link.vercel.app) 
+[Check out the live app here](https://rails-react-cat-app.vercel.app/) 
 *(Note: Please allow ~30s for the initial load as the backend is hosted on a free tier).*
 
 ## 🛠 Tech Stack
