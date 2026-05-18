@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root to: proc { [200, {}, ["API running"]] }
 
+  get "/sync_breeds", to: "sync#breeds"
+
   # Defines the root path route ("/")
   # root "posts#index"
   namespace :api do
