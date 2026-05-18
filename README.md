@@ -30,7 +30,7 @@
 
 | Home Page | Breed Profile | Advanced Filtering |
 | :--- | :--- | :--- |
-| ![Home Page](screenshots/HomePage.png) | ![Profile](screenshots/BreedPage1.png) | ![Filters](screenshots/AdvancedFiltering.png) |
+| ![Home Page](screenshots/HomePage.png) | ![Profile 1](screenshots/BreedPage1.png) <br><br> ![Profile 2](screenshots/BreedPage2.png) <br><br> ![Profile 3](screenshots/BreedPage3.png) | ![Filters](screenshots/AdvancedFiltering.png) |
 
 ---
 
