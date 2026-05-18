@@ -12,7 +12,7 @@
 * **Backend:** Ruby on Rails (REST API) - Service-Oriented Architecture.
 * **Database:** PostgreSQL.
 * **Asynchronous Tasks:** Active Job (Background processing for Cloudinary image uploads).
-* **Key Tools:** React Router, Axios, Lucide Icons.
+
 
 ## ✨ Key Features
 
