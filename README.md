@@ -8,7 +8,7 @@
 
 ## 🛠 Tech Stack
 
-* **Frontend:** React 18, TypeScript, Tailwind CSS, Zustand (State Management).
+* **Frontend:** React , TypeScript, Tailwind CSS, Zustand (State Management).
 * **Backend:** Ruby on Rails (REST API) - Service-Oriented Architecture.
 * **Database:** PostgreSQL.
 * **Asynchronous Tasks:** Active Job (Background processing for Cloudinary image uploads).
@@ -30,7 +30,7 @@
 
 | Home Page | Breed Profile | Advanced Filtering |
 | :--- | :--- | :--- |
-| ![Home Page](https://raw.githubusercontent.com/yourusername/catspace/main/screenshots/home.jpg) | ![Profile](https://raw.githubusercontent.com/yourusername/catspace/main/screenshots/profile.png) | ![Filters](https://raw.githubusercontent.com/yourusername/catspace/main/screenshots/filters.png) |
+| ![Home Page](screenshots/HomePage.png) | ![Profile](screenshots/BreedPage1.png) | ![Filters](screenshots/AdvancedFiltering.png) |
 
 ---
 
