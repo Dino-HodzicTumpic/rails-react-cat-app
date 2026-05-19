@@ -7,6 +7,7 @@ import CheckEmailPage from "./features/auth/pages/CheckEmailPage";
 import HomePage from "./features/home/pages/HomePage";
 import EmailConfirmed from "./features/auth/pages/EmailConfirmed";
 import LoginPage from "./features/auth/pages/LoginPage";
+import ProfilePage from "./features/auth/pages/ProfilePage";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import BreedPage from "./features/browse-breeds/pages/BreedPage";
@@ -37,6 +38,7 @@ function App() {
             />
             <Route path="/signup/confirm" element={<EmailConfirmed />} />
             <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/breeds/:id" element={<BreedPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/advanced-search" element={<AdvancedSearchPage />} />

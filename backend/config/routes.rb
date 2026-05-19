@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :confirmations, only: :create
     resources :logins, only: :create
 
+    get 'users/me', to: 'users#me'
+
     post 'google_oauth/authenticate', to: 'google_oauth#authenticate'
 
     resources :breeds, only: [:index] do
