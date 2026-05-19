@@ -1,6 +1,6 @@
 # 🐱 CatSpace - Full Stack Cat Directory
 
-**CatSpace** is a comprehensive web application for cat lovers to explore breeds, manage favorites, and rate individual cats. Built with a **React (TypeScript)** frontend and a **Ruby on Rails** backend, it demonstrates complex data filtering, asynchronous processing, and advanced state management.
+**CatSpace** is a comprehensive web application for cat lovers to explore breeds, manage favorites, and rate individual cats. Built with a **React (TypeScript)** frontend and a **Ruby on Rails** backend, it features parparameterized multi-attribute filtering, external API integration, asynchronous processing and client-side state management with persistence.Users can like cats, leave ratings, and create a personalized list of favorites. Authentication is supported via email/password or Google OAuth login.
 
 ## 🚀 Live Demo
 [Check out the live app here](https://rails-react-cat-app.vercel.app/) 
@@ -9,22 +9,21 @@
 ## 🛠 Tech Stack
 
 * **Frontend:** React , TypeScript, Tailwind CSS, Zustand (State Management).
-* **Backend:** Ruby on Rails (REST API) - Service-Oriented Architecture.
+* **Backend:** Ruby on Rails (REST API) 
 * **Database:** PostgreSQL.
 * **Asynchronous Tasks:** Active Job (Background processing for Cloudinary image uploads).
 
 
 ## ✨ Key Features
 
-* **Comprehensive Breed Explorer:** Browse a vast library of cat breeds with custom pagination and seamless UI transitions.
+* **Comprehensive Breed Explorer:** Browse a vast library of cat breeds with pagination.
 * **Dynamic Breed Profiles:** Detailed pages featuring lifespan, origin, temperament, and health attributes visualized through intuitive star ratings.
-* **Advanced Search & Filtering:**
+* **Search & Filtering:**
     * **Live Search:** Instant search by breed name with filtered results.
     * **Multi-attribute Filtering:** Advanced search engine using range sliders for specific traits like Intelligence, Grooming, Social Needs, and Dog Friendliness.
-* **Interactive Rating System:** Rate individual cats (1-10) with real-time average score updates and persistent data.
-* **Personalized Experience:** * One-click "Favorites" for both specific cats and entire breeds.
-    * User dashboard to manage personal ratings and curated favorite lists.
-* **Media Gallery:** Each breed profile includes a curated gallery showcasing breed variety through external API integration.
+* **Interactive Rating System:** Rate individual cats (1–10). Average scores are updated based on persisted data.
+* **Personalized Experience:** One-click "Favorites" for both specific cats and entire breeds. Users can manage their saved favorites from a personal dashboard.
+* **Media Gallery:** Each breed profile includes an image gallery powered by external API integration
 
 ## 📸 Screenshots
 
@@ -37,21 +36,20 @@
 ## ⚙️ Technical Highlights
 
 ### Backend (Ruby on Rails)
-* **Service Object Pattern:** Business logic is decoupled from controllers into specialized services (e.g., `RatingService`), ensuring "Thin Controllers" and high maintainability.
-* **Background Jobs:** Utilized `ActiveJob` for offloading image processing tasks to ensure non-blocking API performance.
-* **Robust Error Handling:** Global rescue blocks with standardized JSON error responses and appropriate HTTP status codes.
-* **Data Integrity:** Implemented `find_or_initialize_by` patterns to handle external API data synchronization efficiently.
+* **Service-based architecture:** Core business logic is extracted into service objects (e.g. authentication, ratings, favorites) for better separation of concerns and maintainability.
+* **External API integration:** Integration with TheCatAPI for breed data and image retrieval.
+* **Google OAuth authentication:** Secure login using Google OAuth or email/password authentication.
+* **Background processing:** ActiveJob is used for asynchronous tasks such as image uploads to Cloudinary.
 
 ### Frontend (React & TypeScript)
 * **Type Safety:** Full TypeScript implementation ensuring robust props, API response handling, and state models.
 * **State Management & Caching:** Leveraged **Zustand** to manage global UI state and implement a custom client-side caching layer for breed data to minimize redundant network requests.
-* **Responsive UI:** Mobile-first approach using Tailwind CSS for a seamless experience across all devices.
+* **Responsive UI:** Mobile-first design with Tailwind CSS for responsiveness.
 
 ---
 
-## 🧠 Lessons Learned & Roadmap
+## 🛣️ Roadmap
 
-* **Performance Optimization:** Learned the importance of database indexing for frequent multi-attribute filtering.
 * **Future Improvements:**
     * [ ] **Testing:** Implement RSpec for backend services and Vitest for React components.
     * [ ] **Server-state Migration:** Transition from custom Zustand caching to **TanStack Query** for advanced synchronization.
