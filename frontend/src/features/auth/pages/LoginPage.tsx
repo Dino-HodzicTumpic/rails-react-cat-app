@@ -32,6 +32,7 @@ export default function LoginPage() {
       );
 
       setToken(userData.token);
+      navigator("/");
     } catch (err) {
       console.log("Auth failed", err);
     }
