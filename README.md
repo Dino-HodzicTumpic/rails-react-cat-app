@@ -55,24 +55,4 @@
 
 ---
 
-## ⚙️ Installation & Setup
 
-1.  **Clone the repository**
-    ```bash
-    git clone [https://github.com/yourusername/catspace.git](https://github.com/yourusername/catspace.git)
-    ```
-
-2.  **Backend Setup**
-    ```bash
-    cd backend
-    bundle install
-    rails db:setup
-    rails s
-    ```
-
-3.  **Frontend Setup**
-    ```bash
-    cd frontend
-    npm install
-    npm run dev
-    ```
